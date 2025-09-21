@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import { Link } from 'expo-router';
+import NotificationScheduler from '../../components/NotificationScheduler';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -56,6 +57,7 @@ export default function NotificationsScreen() {
           });
         }}
       />
+      <NotificationScheduler />
       {notification && (
         <View style={styles.notification}>
           <Text style={styles.label}>Dernière notification reçue :</Text>
@@ -83,7 +85,16 @@ async function registerForPushNotificationsAsync() {
       alert('Permission pour les notifications refusée !');
       return;
     }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
+    
+    try {
+      // Essayer d'obtenir le token push avec gestion d'erreur
+      const pushToken = await Notifications.getExpoPushTokenAsync();
+      token = pushToken.data;
+    } catch (error) {
+      console.warn('Impossible d\'obtenir le token push:', error);
+      // En mode développement ou si le projectId n'est pas valide, on continue sans token
+      token = 'Token non disponible (mode développement)';
+    }
   } else {
     alert('Doit être utilisé sur un appareil physique');
   }

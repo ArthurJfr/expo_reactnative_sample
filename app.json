@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "ts-reactnative-base",
-    "slug": "ts-reactnative-base",
+    "name": "expo_reactnative_sample",
+    "slug": "expo_reactnative_sample",
     "version": "1.0.0",
-    "scheme": "expo-router-ts-reactnative-base",
+    "scheme": "expo_reactnative_sample",
+    "projectId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
